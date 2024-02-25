@@ -1,0 +1,64 @@
+[tool.poetry]
+readme = "README.md"
+### After creating a project with this template, please modify these files
+# edit your project name
+name = "python-poetry-hooks-template"
+# edit your project's version. you can start with 0.1.0 for initial version
+version = "0.1.0"
+# edit your project's description
+description = "A template for python projects with pre-commit hooks, poetry, mypy and pytest"
+# edit your projects' authors
+authors = ["Aviad Rozenhek <aviadr1@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+pydantic = "^2.5.2"
+jupyterlab = "^4.1.2"
+ipywidgets = "^8.1.2"
+fastai = "^2.7.14"
+plotly = "^5.19.0"
+
+[tool.poetry.group.dev.dependencies]
+pre-commit = "^3.5.0"
+mypy = "^1.4.1"
+pytest = "^7.2.2"
+pytest-mock = "^3.10.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.isort]
+profile = "black"
+
+[tool.ruff]
+line-length = 120
+ignore = [
+    "F821", # Unknown name (disabled because it doesnt respect annotation postponing),
+    "E501", # long lines
+]
+
+[docformatter]
+pre-summary-newline = true
+
+[tool.mypy]
+plugins = [
+  "pydantic.mypy"
+]
+
+[tool.pydantic-mypy]
+init_forbid_extra = true
+init_typed = true
+warn_required_dynamic_aliases = true
+warn_untyped_fields = true
+
+### uncomment these to make mypy event more strict
+# follow_imports = "silent"
+# warn_redundant_casts = true
+# warn_unused_ignores = true
+# disallow_any_generics = true
+# check_untyped_defs = true
+# no_implicit_reexport = true
+
+### for strict mypy: (this is the tricky one :-))
+# disallow_untyped_defs = true

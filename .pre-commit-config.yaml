@@ -1,0 +1,47 @@
+repos:
+  - repo: https://github.com/PyCQA/docformatter
+    rev: v1.7.2
+    hooks:
+    - id: docformatter
+      additional_dependencies: [ tomli ]
+      args: [ --make-summary-multi-line, --pre-summary-newline, --black, --in-place, --config, ./pyproject.toml ]
+  - repo: https://github.com/pycqa/isort
+    rev: 5.12.0
+    hooks:
+    - id: isort
+      name: isort (python)
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    # Ruff version.
+    rev: v0.0.270
+    hooks:
+      - id: ruff
+        args: [ --fix, --exit-non-zero-on-fix ]
+  - repo: https://github.com/psf/black
+    rev: 23.3.0
+    hooks:
+      - id: black
+        # It is recommended to specify the latest version of Python
+        # supported by your project here, or alternatively use
+        # pre-commit's default_language_version, see
+        # https://pre-commit.com/#top_level-default_language_version
+        # language_version: python3.11
+  - repo: local
+    # We do not use pre-commit/mirrors-mypy,
+    # as it comes with opinionated defaults
+    # (like --ignore-missing-imports)
+    # and is difficult to configure to run
+    # with the dependencies correctly installed.
+    hooks:
+      - id: mypy
+        name: mypy
+        entry: "poetry run mypy --install-types --non-interactive"
+        language: python
+        # use your preferred Python version
+        # language_version: python3.9
+        # additional_dependencies: [ "mypy==^1.4.1" ]
+        types: [ python ]
+        # use require_serial so that script
+        # is only called once per commit
+        require_serial: true
+        # Print the number of files as a sanity-check
+        verbose: true
